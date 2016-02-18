@@ -1,0 +1,8 @@
+[Activity]
+name = Nic-Mat 
+activity_version = 1
+bundle_id = net.nestor.numeros
+exec = sugar-activity Numeros.Main_Class
+license = GPLv2+
+icon = activity
+summary = Diviertete con las Matematicas! 
