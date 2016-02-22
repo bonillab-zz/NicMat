@@ -16,12 +16,7 @@ class Main_Class(cliked,niveles):
     tiempo_aux=1
     tamanio_letra=50
     tipo_letra="Impact"
-    habilitar_level_1=False
-    habilitar_level_resta=False
-    habilitar_div=False
-    habilitar_seleccion_niveles=False
-    habilitar_level_mult=False
-    habilitar_home=False
+
 
     def __init__(self):
         pygame.init()
@@ -34,22 +29,24 @@ class Main_Class(cliked,niveles):
         pygame.display.update()
         self.principal()
         
-    def principal(self):   
+    def principal(self): 
+        self.habilitar_level_1=False
+        self.habilitar_level_resta=False
+        self.habilitar_div=False
+        self.habilitar_seleccion_niveles=False
+        self.habilitar_level_mult=False
+        self.habilitar_home=False
+
+
         #imagenes
         self.fondo = pygame.image.load('imagenes/principal.jpg')
         self.ventana.blit(self.fondo, (0, 0))
         pygame.display.flip()
             
-        self.btn_iniciar= pygame.image.load('imagenes/iniciar.png')
-        self.rect_btn_iniciar=self.btn_iniciar.get_rect()
-       
-        self.rect_btn_iniciar.left=300
-        self.rect_btn_iniciar.top=600
-        self.ventana.blit(self.btn_iniciar,self.rect_btn_iniciar)
     
         btn_niveles= pygame.image.load('imagenes/btn_niveles.png')
         self.rect_btn_niveles=btn_niveles.get_rect()
-        self.rect_btn_niveles.left=600
+        self.rect_btn_niveles.left=300
         self.rect_btn_niveles.top=600
         self.ventana.blit(btn_niveles,self.rect_btn_niveles)
 
@@ -180,21 +177,14 @@ class Main_Class(cliked,niveles):
                     if self.rect_btn_niveles.collidepoint(self.pos):
                         print "niveles"
                         self.sonido_click()
-                        self.rect_off(self.rect_btn_iniciar)    
+                       
                         self.selec_level()
 
                         self.habilitar_seleccion_niveles=True
 
                     self.seleccion_niveles() 
 
-                    if self.rect_btn_iniciar.collidepoint(self.pos):
-                        print 'colicion'
-                        self.sonido_click()
-                        self.habilitar_level_1=True
-                        self.rect_off(self.rect_btn_niveles)
-                        self.rect_off(self.rect_btn_iniciar)
-                        self.level_1()
-
+           
                     if self.habilitar_home:    
                         self.validacion_home()
                      

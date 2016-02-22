@@ -286,33 +286,79 @@ class niveles:
         pygame.display.update()        
 
     def level_divicion(self):
-        self.validacion_div()
 
-        self.fondo2=pygame.image.load('imagenes/level_div.jpg')
-        self.ventana.blit(self.fondo2,(0,0))
-        pygame.display.flip() 
+        self.random_start()
+        self.num1=self.numero_1+1
+        self.num2=self.numero_2+1
 
-        self.btn_home()
+        self.total_div=(self.num1)/(self.num2)
+        print "%s entre %s es %s " % (self.num1,self.num2,self.total_div)                      
 
-        self.arbol_div_1=pygame.image.load('imagenes/arbol_1.png')
-        self.rect_arbol_div_1=self.arbol_div_1.get_rect()
-        self.rect_arbol_div_1.left=100
-        self.rect_arbol_div_1.top=580
+        if (self.num1%self.num2)==0:
+            print "Es entero"
+            self.fondo2=pygame.image.load('imagenes/level_div.jpg')
+            self.ventana.blit(self.fondo2,(0,0))
+            pygame.display.flip() 
+
+            self.btn_home()
+
+            self.arbol_div_1=pygame.image.load('imagenes/Arbol_div.png')
+            self.rect_arbol_div_1=self.arbol_div_1.get_rect()
+            self.rect_arbol_div_1.left=117
+            self.rect_arbol_div_1.top=580
+            self.ventana.blit(self.arbol_div_1,self.rect_arbol_div_1)
+
+            self.arbol_div_2=pygame.image.load('imagenes/Arbol_div.png')
+            self.rect_arbol_div_2=self.arbol_div_2.get_rect()
+            self.rect_arbol_div_2.left=480
+            self.rect_arbol_div_2.top=580
+            self.ventana.blit(self.arbol_div_2,self.rect_arbol_div_2)
 
 
+            self.arbol_div_3=pygame.image.load('imagenes/Arbol_div.png')
+            self.rect_arbol_div_3=self.arbol_div_3.get_rect()
+            self.rect_arbol_div_3.left=880
+            self.rect_arbol_div_3.top=580
+            self.ventana.blit(self.arbol_div_3,self.rect_arbol_div_3)
 
-        self.arbol_div_2=pygame.image.load('imagenes/arbol_2.png')
-        self.rect_arbol_div_2=self.arbol_div_2.get_rect()
-        self.rect_arbol_div_2.left=480
-        self.rect_arbol_div_2.top=580
-        self.ventana.blit(self.arbol_div_2,self.rect_arbol_div_2)
+            self.imprimir_letra(self.num1,(0,0,0),(255,255,255),100,415) 
+            self.imprimir_letra(self.num2,(0,0,0),(255,255,255),390,415) 
+            
+            self.random_start()
+            self.result_div=[self.numeros[0],self.numeros[1],self.total_div]          
+
+            random.shuffle(self.result_div)
+            self.result_div_1=self.result_div[0]
+            self.result_div_2=self.result_div[1]
+            self.result_div_3=self.result_div[2]
+
+            letra_resp_1 = pygame.font.SysFont(self.tipo_letra, self.tamanio_letra)                       
+            self.imagenTextoPresent = letra_resp_1.render(str(self.result_div_1), 
+            True, (0,0,0), (116,210,23) )
+            self.X1_div=250
+            self.Y1_div=640
+            self.ventana.blit(self.imagenTextoPresent,(self.X1_div,self.Y1_div))    
+
+            letra_resp_2 = pygame.font.SysFont(self.tipo_letra, self.tamanio_letra)                       
+            self.imagenTextoPresent = letra_resp_2.render(str(self.result_div_2), 
+            True, (0,0,0), (116,210,23) )
+            self.X2_div=595
+            self.Y2_div=640
+            self.ventana.blit(self.imagenTextoPresent,(self.X2_div,self.Y2_div))   
+
+            letra_resp_3 = pygame.font.SysFont(self.tipo_letra, self.tamanio_letra)                       
+            self.imagenTextoPresent = letra_resp_3.render(str(self.result_div_3), 
+            True, (0,0,0), (116,210,23) )
+            self.X3_div=995
+            self.Y3_div=640
+            self.ventana.blit(self.imagenTextoPresent,(self.X3_div,self.Y3_div))   
 
 
-        self.arbol_div_3=pygame.image.load('imagenes/arbol_1.png')
-        self.rect_arbol_div_3=self.arbol_div_3.get_rect()
-        self.rect_arbol_div_3.left=880
-        self.rect_arbol_div_3.top=580
-        self.ventana.blit(self.arbol_div_3,self.rect_arbol_div_3)
+            self.validacion_div()            
+
+        else:
+            print "Es decimal"  
+            self.level_divicion()         
 
 
         pygame.display.update()
@@ -356,7 +402,7 @@ class cliked:
                 self.sonido_click()
                 self.rect_off(self.rect_btn_suma)
                 self.rect_off(self.rect_btn_niveles)
-                self.rect_off(self.rect_btn_iniciar)
+              
                 self.rect_off(self.rect_btn_resta)
                 self.rect_off(self.rect_btn_mult)
                 self.rect_off(self.rect_btn_dividir)
@@ -371,7 +417,7 @@ class cliked:
                 self.rect_off(self.rect_btn_suma)
                 self.rect_off(self.rect_btn_dividir)
                 self.rect_off(self.rect_btn_mult)
-                self.rect_off(self.rect_btn_iniciar)
+    
                 self.rect_off(self.rect_btn_niveles)
                 self.habilitar_level_resta=True
                 self.habilitar_home=True
@@ -384,7 +430,7 @@ class cliked:
                 self.habilitar_home=True
                 self.rect_off(self.rect_btn_suma)
                 self.rect_off(self.rect_btn_niveles)
-                self.rect_off(self.rect_btn_iniciar)
+       
                 self.rect_off(self.rect_btn_resta)
                 self.rect_off(self.rect_btn_mult)
                 self.rect_off(self.rect_btn_dividir)
@@ -398,7 +444,6 @@ class cliked:
                 self.habilitar_div=True
                 self.rect_off(self.rect_btn_suma)
                 self.rect_off(self.rect_btn_niveles)
-                self.rect_off(self.rect_btn_iniciar)
                 self.rect_off(self.rect_btn_resta)
                 self.rect_off(self.rect_btn_mult)
                 self.rect_off(self.rect_btn_dividir)
@@ -585,21 +630,20 @@ class cliked:
                     self.imprimir_letra("Fallido= "+str(self.fallido),(0,0,0),(255,255,255),210,165)
                     self.sonido_fallido()     
 
-    def random_level_div(self):   
-        self.random_start()
-        self.num1=self.numero_1+1
-        self.num2=self.numero_2+1
-
-        self.total=(self.num1)/(self.num2)
-        print "%s entre %s es %s " % (self.num1,self.num2,self.total)                      
+  
 
     def validacion_div(self):
-        self.random_level_div()
-        if (self.num1%self.num2)==0:
-            print "Es entero"
-        else:
-            print "Es decimal"  
-            self.level_divicion()                
+        print "Val level"
+        if self.rect_arbol_div_1.collidepoint(self.pos):
+            print "Arbol 1"
+
+        if self.rect_arbol_div_2.collidepoint(self.pos):
+            print "Arbol 2"
+
+
+        if self.rect_arbol_div_3.collidepoint(self.pos):
+            print "Arbol 3"        
+               
 
 
 
