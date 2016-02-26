@@ -36,6 +36,7 @@ class Main_Class(cliked,niveles):
         self.habilitar_seleccion_niveles=False
         self.habilitar_level_mult=False
         self.habilitar_home=False
+        self.habilitar_ayuda=False
 
 
         #imagenes
@@ -62,6 +63,14 @@ class Main_Class(cliked,niveles):
         self.rect_home.top=30
         self.ventana.blit(home,self.rect_home)    
         pygame.display.update
+
+    def btn_ayuda(self):
+        ayuda=pygame.image.load('imagenes/ayuda.png')
+        self.rect_ayuda=ayuda.get_rect()
+        self.rect_ayuda.left=90
+        self.rect_ayuda.top=30
+        self.ventana.blit(ayuda,self.rect_ayuda)
+        pygame.display.update()    
     
 
 
@@ -94,9 +103,6 @@ class Main_Class(cliked,niveles):
         self.X1=x1
         self.Y1=y1
         self.ventana.blit(self.imagenTextoPresent,(self.X1,self.Y1))
-
-
-
         pygame.display.update()
 
     def ganar_mover(self,fondo,imagen,respuesta):   
@@ -122,8 +128,6 @@ class Main_Class(cliked,niveles):
 
 
     def selec_level(self):
-        
-       
         self.fondo_niveles = pygame.image.load('imagenes/niveles.png')
         self.ventana.blit(self.fondo_niveles, (0, 0))
         pygame.display.flip()
@@ -187,11 +191,19 @@ class Main_Class(cliked,niveles):
            
                     if self.habilitar_home:    
                         self.validacion_home()
-                     
+                    else:
+                        pass    
+                    
+                    if self.habilitar_ayuda:
+                        self.validacion_ayuda() 
+                    else:
+                        pass                           
+                   
                     if self.habilitar_level_1:  
                         self.validaciones_level_1()
                     else:
                         pass 
+                    
                     if self.habilitar_level_resta:     
 
                         self.validaciones_level_resta()        
@@ -202,6 +214,7 @@ class Main_Class(cliked,niveles):
                         self.validacion_level_mult()
                     else:
                         pass  
+                   
                     if self.habilitar_div:
                         self.validacion_div()
                     else:   

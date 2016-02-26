@@ -16,13 +16,13 @@ class niveles:
         pygame.display.flip()
 
         self.btn_home()
-               
+        self.btn_ayuda()       
         self.boton2=pygame.image.load('imagenes/boton2.png')
         self.ventana.blit(self.boton2,(160,250))
         self.ventana.blit(self.boton2,(410,250))
         self.ventana.blit(self.boton2,(655,250))
 
-        imagen_signo_mas=pygame.image.load('imagenes/+.png')
+        imagen_signo_mas=pygame.image.load('imagenes/mas.png')
         self.ventana.blit(imagen_signo_mas,(325,300))
         self.ventana.blit(imagen_signo_mas,(570,300))
 
@@ -127,9 +127,8 @@ class niveles:
         self.fondo2=pygame.image.load('imagenes/level_resta.jpg')
         self.ventana.blit(self.fondo2,(0,0))
         pygame.display.flip()
-
         self.btn_home()
-
+        self.btn_ayuda()
         nube_1=pygame.image.load('imagenes/nube_1.png')
         self.rect_nube1=nube_1.get_rect()
         self.rect_nube1.left=50
@@ -217,10 +216,10 @@ class niveles:
         pygame.display.flip()
 
         self.btn_home()
-
+        self.btn_ayuda()
         self.imprimir_letra(self.numero_1,(0,0,0),(255,255,255),100,415) 
         self.imprimir_letra(self.numero_2,(0,0,0),(255,255,255),410,415)
-        self.imprimir_letra(self.numero_3,(0,0,0),(255,255,255),725,400)
+        
 
         arbol_1=pygame.image.load('imagenes/arbol_1.png')
         self.rect_arbol_1=arbol_1.get_rect()
@@ -246,7 +245,7 @@ class niveles:
 
         self.imprimir_letra("Fallido= "+str(self.fallido),(0,0,0),(255,255,255),210,165)
 
-        self.total_mult=self.numero_1*self.numero_2*self.numero_3
+        self.total_mult=self.numero_1*self.numero_2
 
         self.random_start()
         resultado_mult=[self.numeros.pop(4),self.numeros.pop(5),self.total_mult]
@@ -280,9 +279,6 @@ class niveles:
         self.Y3_mult=630
         self.ventana.blit(self.imagenTextoPresent,(self.X3_mult,self.Y3_mult))
 
-
-
-
         pygame.display.update()        
 
     def level_divicion(self):
@@ -300,8 +296,11 @@ class niveles:
             self.ventana.blit(self.fondo2,(0,0))
             pygame.display.flip() 
 
-            self.btn_home()
+            self.box_div=pygame.image.load("imagenes/box_div.png")
+            self.ventana.blit(self.box_div,(370,85))
 
+            self.btn_home()
+            self.btn_ayuda()
             self.arbol_div_1=pygame.image.load('imagenes/Arbol_div.png')
             self.rect_arbol_div_1=self.arbol_div_1.get_rect()
             self.rect_arbol_div_1.left=117
@@ -321,8 +320,11 @@ class niveles:
             self.rect_arbol_div_3.top=580
             self.ventana.blit(self.arbol_div_3,self.rect_arbol_div_3)
 
-            self.imprimir_letra(self.num1,(0,0,0),(255,255,255),100,415) 
-            self.imprimir_letra(self.num2,(0,0,0),(255,255,255),390,415) 
+            self.imprimir_letra(self.num1,(255,255,255),(0,0,0),160,320) 
+            self.imprimir_letra(self.num2,(255,255,255),(0,0,0),600,335) 
+
+            self.imprimir_letra("Puntaje= "+str(self.puntaje),(0,0,0),(255,255,255),390,100)
+            self.imprimir_letra("Fallido= "+str(self.fallido),(0,0,0),(255,255,255),390,150)            
             
             self.random_start()
             self.result_div=[self.numeros[0],self.numeros[1],self.total_div]          
@@ -354,14 +356,14 @@ class niveles:
             self.ventana.blit(self.imagenTextoPresent,(self.X3_div,self.Y3_div))   
 
 
-            self.validacion_div()            
+          
 
         else:
             print "Es decimal"  
             self.level_divicion()         
-
-
-        pygame.display.update()
+            
+        pygame.display.update()            
+        
 
 
 class cliked:
@@ -395,6 +397,10 @@ class cliked:
 
             self.principal()  
 
+    def validacion_ayuda(self):
+        if self.rect_ayuda.collidepoint(self.pos):
+            print "Ayuda"        
+
     def seleccion_niveles(self):
         if self.habilitar_seleccion_niveles:
             if self.rect_btn_suma.collidepoint(self.pos):
@@ -408,6 +414,7 @@ class cliked:
                 self.rect_off(self.rect_btn_dividir)
                 self.habilitar_level_1=True
                 self.habilitar_home=True
+                self.habilitar_ayuda=True
                 self.level_1() 
 
             if self.rect_btn_resta.collidepoint(self.pos):
@@ -421,6 +428,7 @@ class cliked:
                 self.rect_off(self.rect_btn_niveles)
                 self.habilitar_level_resta=True
                 self.habilitar_home=True
+                self.habilitar_ayuda=True
                 self.level_resta() 
 
 
@@ -428,6 +436,7 @@ class cliked:
                 print "Multiplicar"
                 self.habilitar_level_mult=True
                 self.habilitar_home=True
+                self.habilitar_ayuda=True
                 self.rect_off(self.rect_btn_suma)
                 self.rect_off(self.rect_btn_niveles)
        
@@ -442,6 +451,7 @@ class cliked:
                 self.sonido_click()  
                 self.habilitar_home=True
                 self.habilitar_div=True
+                self.habilitar_ayuda=True
                 self.rect_off(self.rect_btn_suma)
                 self.rect_off(self.rect_btn_niveles)
                 self.rect_off(self.rect_btn_resta)
@@ -472,6 +482,7 @@ class cliked:
                     self.imprimir_letra("Fallido= "+str(self.fallido),(0,0,0),(255,255,255),390,150)
                     self.intento_fallido((0,0,0),(color_letra_fallido),'imagenes/estrella_3.png',self.result_1,280,620,340,675)
                     self.sonido_fallido()    
+                    pygame.display.update()       
                                                                                
  
         if self.rect_select_2.collidepoint(self.pos):
@@ -554,7 +565,7 @@ class cliked:
                     print "Perdistes"
                     self.fallido+=1
                     self.intento_fallido((0,0,0),(255,255,255),'imagenes/error.png',self.result_2,420,210,465,140)
-                    # self.imprimir_letra("Fallido= "+str(self.fallido),(0,0,0),(122,193,65),1000,80)
+                    self.imprimir_letra("Fallido= "+str(self.fallido),(0,0,0),(122,193,65),1000,80)
                     self.sonido_fallido()             
           
         if self.rect_nube3.collidepoint(self.pos):
@@ -634,19 +645,60 @@ class cliked:
 
     def validacion_div(self):
         print "Val level"
+        self.cara_triste=pygame.image.load("imagenes/cara_triste.png")
+        self.bicho=pygame.image.load("imagenes/bicho_div.png")
         if self.rect_arbol_div_1.collidepoint(self.pos):
-            print "Arbol 1"
+            if self.X1_div==250 and self.Y1_div==640:
+                if self.result_div_1==self.total_div:
+                    print "Ganas"
+                    self.puntaje +=1
+                    self.ventana.blit(self.bicho,(932,140,0,0))
+                    self.imprimir_letra(self.result_div_1,(255,255,255),(0,0,0),1020,310)
+                    pygame.time.wait(self.tiempo_ventana)
+                    self.level_divicion()
+                else:
+                    print "Pierdes"
+                    self.ventana.blit(self.cara_triste,(224,490))                          
+                    self.sonido_fallido()
+                    self.fallido+=1
+                    self.imprimir_letra("Fallido= "+str(self.fallido),(0,0,0),(255,255,255),390,150)
 
-        if self.rect_arbol_div_2.collidepoint(self.pos):
-            print "Arbol 2"
 
+        elif self.rect_arbol_div_2.collidepoint(self.pos):
+            
+            if self.X2_div==595 and self.Y2_div==640:
+                if self.result_div_2==self.total_div:
+                    print "Ganas"
+                    self.puntaje +=1
+                    self.ventana.blit(self.bicho,(932,140,0,0))
+                    self.imprimir_letra(self.result_div_2,(255,255,255),(0,0,0),1020,310)
+                    pygame.time.wait(self.tiempo_ventana)
+                    self.level_divicion()
+                else:
+                    print "Pierdes"    
+                    self.ventana.blit(self.cara_triste,(580,490))                      
+                    self.sonido_fallido()
+                    self.fallido+=1
+                    self.imprimir_letra("Fallido= "+str(self.fallido),(0,0,0),(255,255,255),390,150)                  
 
-        if self.rect_arbol_div_3.collidepoint(self.pos):
-            print "Arbol 3"        
-               
-
-
-
+        elif self.rect_arbol_div_3.collidepoint(self.pos):
+            
+            if self.X3_div==995 and self.Y3_div==640:
+                if self.result_div_3==self.total_div:
+                    print "Ganas"
+                    self.puntaje +=1
+                    self.ventana.blit(self.bicho,(932,140,0,0))    
+                    self.imprimir_letra(self.result_div_3,(255,255,255),(0,0,0),1020,310)
+                    pygame.time.wait(self.tiempo_ventana)
+                    self.level_divicion()
+                else:
+                    print "Pierdes"     
+                    self.sonido_fallido() 
+                    self.ventana.blit(self.cara_triste,(990,490))                      
+                    self.fallido+=1
+                    self.imprimir_letra("Fallido= "+str(self.fallido),(0,0,0),(255,255,255),390,150)    
+        pygame.display.update()                
+                
 
 
 CURSOR = (
