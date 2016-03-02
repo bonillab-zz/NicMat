@@ -16,20 +16,10 @@ class Main_Class(cliked,niveles):
     tiempo_aux=1
     tamanio_letra=50
     tipo_letra="Impact"
-
-
-    def __init__(self):
-        pygame.init()
-        # pygame.mixer.music.load('sonidos/musica.ogg')
-        # pygame.mixer.music.play(30)
-        cursor = pygame.cursors.compile(CURSOR)
-        pygame.mouse.set_cursor((32,32), (1,1), * cursor)
-        self.ventana=pygame.display.set_mode((resolution))
-        pygame.display.set_caption("NicMat")
-        pygame.display.update()
-        self.principal()
         
     def principal(self): 
+        self.cara_triste=pygame.image.load("imagenes/cara_triste.png")
+        self.cara_feliz=pygame.image.load("imagenes/cara_feliz.png")
         self.habilitar_level_1=False
         self.habilitar_level_resta=False
         self.habilitar_div=False
@@ -37,6 +27,12 @@ class Main_Class(cliked,niveles):
         self.habilitar_level_mult=False
         self.habilitar_home=False
         self.habilitar_ayuda=False
+        self.habilitar_regresar=False
+        self.habilitar_recargar=False
+        self.ayuda_suma=False
+        self.ayuda_resta=False
+        self.ayuda_mult=False
+        self.ayuda_div=False
 
 
         #imagenes
@@ -47,7 +43,7 @@ class Main_Class(cliked,niveles):
     
         btn_niveles= pygame.image.load('imagenes/btn_niveles.png')
         self.rect_btn_niveles=btn_niveles.get_rect()
-        self.rect_btn_niveles.left=300
+        self.rect_btn_niveles.left=450
         self.rect_btn_niveles.top=600
         self.ventana.blit(btn_niveles,self.rect_btn_niveles)
 
@@ -67,12 +63,25 @@ class Main_Class(cliked,niveles):
     def btn_ayuda(self):
         ayuda=pygame.image.load('imagenes/ayuda.png')
         self.rect_ayuda=ayuda.get_rect()
-        self.rect_ayuda.left=90
+        self.rect_ayuda.left=150
         self.rect_ayuda.top=30
         self.ventana.blit(ayuda,self.rect_ayuda)
         pygame.display.update()    
-    
 
+    def btn_regresar(self,left,top):
+        regresar=pygame.image.load('imagenes/iniciar.png')    
+        self.rect_regresar=regresar.get_rect()
+        self.rect_regresar.left=left
+        self.rect_regresar.top=top
+        self.ventana.blit(regresar,self.rect_regresar)
+        pygame.display.update()
+
+    def btn_recargar(self):
+        recargar=pygame.image.load('imagenes/refresh.png')    
+        self.rect_recargar=recargar.get_rect()
+        self.rect_recargar.left=90
+        self.rect_recargar.top=30
+        self.ventana.blit(recargar,self.rect_recargar)
 
     def sonido_click(self):
         sonido_click=pygame.mixer.Sound("sonidos/click.ogg")
@@ -139,16 +148,16 @@ class Main_Class(cliked,niveles):
         self.rect_btn_suma.top=150
 
         self.btn_resta=pygame.image.load('imagenes/btn_resta.png')
-        self.ventana.blit(self.btn_resta,(500,150))
+        self.ventana.blit(self.btn_resta,(100,380))
         self.rect_btn_resta=self.btn_resta.get_rect()
-        self.rect_btn_resta.left=500
-        self.rect_btn_resta.top=150
+        self.rect_btn_resta.left=100
+        self.rect_btn_resta.top=380
 
         self.btn_mult=pygame.image.load('imagenes/btn_multiplicar.png')
-        self.ventana.blit(self.btn_mult,(100,380))
+        self.ventana.blit(self.btn_mult,(500,150))
         self.rect_btn_mult=self.btn_resta.get_rect()
-        self.rect_btn_mult.left=100
-        self.rect_btn_mult.top=380
+        self.rect_btn_mult.left=500
+        self.rect_btn_mult.top=150
 
         self.btn_dividir=pygame.image.load('imagenes/btn_dividir.png')
 
@@ -163,6 +172,16 @@ class Main_Class(cliked,niveles):
         if self.tiempo_aux==self.tiempo:
             self.tiempo_aux+=1
             print self.tiempo
+
+    def __init__(self):
+        pygame.init()
+        # pygame.mixer.music.load('sonidos/musica.ogg')
+        # pygame.mixer.music.play(30)
+        cursor = pygame.cursors.compile(CURSOR)
+        pygame.mouse.set_cursor((32,32), (1,1), * cursor)
+        self.ventana=pygame.display.set_mode((resolution))
+        pygame.display.set_caption("NicMat")
+        pygame.display.update()            
 
     def deteccion_click(self):    
         while True:
@@ -197,7 +216,18 @@ class Main_Class(cliked,niveles):
                     if self.habilitar_ayuda:
                         self.validacion_ayuda() 
                     else:
-                        pass                           
+                        pass     
+
+                    if self.habilitar_regresar:
+                        self.val_regresar()
+                    else:        
+                        pass 
+
+                    if self.habilitar_recargar:
+                        self.val_recargar()
+                    else:
+                        pass        
+
                    
                     if self.habilitar_level_1:  
                         self.validaciones_level_1()

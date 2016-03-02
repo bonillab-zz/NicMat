@@ -4,7 +4,8 @@ import random
 
 class niveles:
     def level_1(self):
-        
+        self.ayuda_suma=True 
+        self.habilitar_recargar=True
         self.random_start() 
 
         print self.numero_1,self.numero_2,self.numero_3  
@@ -16,7 +17,8 @@ class niveles:
         pygame.display.flip()
 
         self.btn_home()
-        self.btn_ayuda()       
+        self.btn_ayuda()  
+        self.btn_recargar()     
         self.boton2=pygame.image.load('imagenes/boton2.png')
         self.ventana.blit(self.boton2,(160,250))
         self.ventana.blit(self.boton2,(410,250))
@@ -75,11 +77,6 @@ class niveles:
         # True, (0,0,0), (255,255,255) )
         # self.ventana.blit(self.imagenTextoPresent,(390,150))  
         pygame.display.update()        
-       
-        
-
-       
-        
         self.total=self.numero_1+self.numero_2+self.numero_3
         
         #Random
@@ -120,14 +117,24 @@ class niveles:
         pygame.display.update() 
         self.deteccion_click()
 
+    def imagen_ayuda_suma(self):
+        self.habilitar_regresar=True
+        box=pygame.image.load('imagenes/fondo_ayuda_suma.png')
+        self.ventana.blit(box,(0,0))    
+        pygame.display.flip()        
+        self.btn_regresar(860,90) 
+        pygame.display.update()
+
     def level_resta(self):
         self.random_start()
-
+        self.ayuda_resta=True
+        self.habilitar_recargar=True
         print self.numero_1,self.numero_2,self.numero_3  
         self.fondo2=pygame.image.load('imagenes/level_resta.jpg')
         self.ventana.blit(self.fondo2,(0,0))
         pygame.display.flip()
         self.btn_home()
+        self.btn_recargar()
         self.btn_ayuda()
         nube_1=pygame.image.load('imagenes/nube_1.png')
         self.rect_nube1=nube_1.get_rect()
@@ -148,22 +155,13 @@ class niveles:
         self.rect_nube3.top=100
         self.ventana.blit(nube_3,self.rect_nube3)
 
-
-      
-
         # Texto de Suma
 
         self.imprimir_letra(self.numero_1,(0,0,0),(255,240,1),120,515)
         self.imprimir_letra(self.numero_2,(0,0,0),(255,210,220),390,490)
         self.imprimir_letra(self.numero_3,(0,0,0),(217,247,191),650,480)
-
-      
-
         self.imprimir_letra("Puntaje= "+str(self.puntaje),(0,0,0),(122,193,65),995,31)
-
         self.imprimir_letra("Fallido= "+str(self.fallido),(0,0,0),(122,193,65),1000,80)
-
-     
 
         self.total2=self.numero_1-self.numero_2-self.numero_3
         
@@ -208,17 +206,25 @@ class niveles:
 
         pygame.display.update()
 
+    def imagen_ayuda_resta(self):
+        self.habilitar_regresar=True
+        ayuda_resta=pygame.image.load('imagenes/ayuda_resta.jpg')
+        self.ventana.blit(ayuda_resta,(0,0))    
+        self.btn_regresar(870,270)        
+
     def level_mult(self):
         self.random_start() 
         print self.numero_1,self.numero_2,self.numero_3  
         self.fondo2=pygame.image.load('imagenes/fondo_mult.jpg')
         self.ventana.blit(self.fondo2,(0,0))
         pygame.display.flip()
-
+        self.ayuda_mult=True 
+        self.habilitar_recargar=True       
         self.btn_home()
+        self.btn_recargar()
         self.btn_ayuda()
-        self.imprimir_letra(self.numero_1,(0,0,0),(255,255,255),100,415) 
-        self.imprimir_letra(self.numero_2,(0,0,0),(255,255,255),410,415)
+        self.imprimir_letra(self.numero_1,(0,0,0),(255,255,255),100,355) 
+        self.imprimir_letra(self.numero_2,(0,0,0),(255,255,255),540,340)
         
 
         arbol_1=pygame.image.load('imagenes/arbol_1.png')
@@ -279,14 +285,21 @@ class niveles:
         self.Y3_mult=630
         self.ventana.blit(self.imagenTextoPresent,(self.X3_mult,self.Y3_mult))
 
-        pygame.display.update()        
+        pygame.display.update()    
+
+    def imagen_ayuda_mult(self):
+        self.habilitar_regresar=True
+        ayuda_mult=pygame.image.load('imagenes/ayuda_mult.png')
+        self.ventana.blit(ayuda_mult,(0,0))
+        self.btn_regresar(930,295)            
 
     def level_divicion(self):
 
         self.random_start()
         self.num1=self.numero_1+1
         self.num2=self.numero_2+1
-
+        self.ayuda_div=True
+        self.habilitar_recargar=True
         self.total_div=(self.num1)/(self.num2)
         print "%s entre %s es %s " % (self.num1,self.num2,self.total_div)                      
 
@@ -297,9 +310,10 @@ class niveles:
             pygame.display.flip() 
 
             self.box_div=pygame.image.load("imagenes/box_div.png")
-            self.ventana.blit(self.box_div,(370,85))
+            self.ventana.blit(self.box_div,(370,50))
 
             self.btn_home()
+            self.btn_recargar()
             self.btn_ayuda()
             self.arbol_div_1=pygame.image.load('imagenes/Arbol_div.png')
             self.rect_arbol_div_1=self.arbol_div_1.get_rect()
@@ -323,8 +337,8 @@ class niveles:
             self.imprimir_letra(self.num1,(255,255,255),(0,0,0),160,320) 
             self.imprimir_letra(self.num2,(255,255,255),(0,0,0),600,335) 
 
-            self.imprimir_letra("Puntaje= "+str(self.puntaje),(0,0,0),(255,255,255),390,100)
-            self.imprimir_letra("Fallido= "+str(self.fallido),(0,0,0),(255,255,255),390,150)            
+            self.imprimir_letra("Puntaje= "+str(self.puntaje),(0,0,0),(255,255,255),400,65)
+            self.imprimir_letra("Fallido= "+str(self.fallido),(0,0,0),(255,255,255),400,115)            
             
             self.random_start()
             self.result_div=[self.numeros[0],self.numeros[1],self.total_div]          
@@ -362,9 +376,13 @@ class niveles:
             print "Es decimal"  
             self.level_divicion()         
             
-        pygame.display.update()            
-        
+        pygame.display.update()  
 
+    def imagen_ayuda_div(self):
+        self.habilitar_regresar=True
+        ayuda_div=pygame.image.load('imagenes/ayuda_div.jpg')
+        self.ventana.blit(ayuda_div,(0,0))
+        self.btn_regresar(911,220)     
 
 class cliked:
 
@@ -400,7 +418,71 @@ class cliked:
     def validacion_ayuda(self):
         if self.rect_ayuda.collidepoint(self.pos):
             print "Ayuda"        
+            if self.ayuda_suma:
+                print "Suma"
+                self.rect_off(self.rect_ayuda)
+                self.rect_off(self.rect_home)
+                self.rect_off(self.rect_recargar)
+                self.rect_off(self.rect_select)
+                self.rect_off(self.rect_select_2)
+                self.rect_off(self.rect_slect_3)
+                self.imagen_ayuda_suma()
+            elif self.ayuda_resta:
+                print "Resta"
+                self.rect_off(self.rect_ayuda)
+                self.rect_off(self.rect_home)
+                self.rect_off(self.rect_recargar)
+                self.rect_off(self.rect_nube1)
+                self.rect_off(self.rect_nube2)
+                self.rect_off(self.rect_nube3)                
+                self.imagen_ayuda_resta()
+            elif self.ayuda_mult:
+                print "Mult" 
+                self.rect_off(self.rect_home)
+                self.rect_off(self.rect_ayuda)
+                self.rect_off(self.rect_recargar)
+                self.rect_off(self.rect_arbol_1)
+                self.rect_off(self.rect_arbol_2)
+                self.rect_off(self.rect_arbol_3)
+                self.imagen_ayuda_mult()
+            elif self.ayuda_div:
+                print "Div"  
+                self.rect_off(self.rect_arbol_div_1)
+                self.rect_off(self.rect_arbol_div_2)
+                self.rect_off(self.rect_arbol_div_3)
+                self.rect_off(self.rect_home)
+                self.rect_off(self.rect_recargar)
+                self.rect_off(self.rect_ayuda)
+                self.imagen_ayuda_div()
 
+
+    def val_regresar(self):
+        if self.rect_regresar.collidepoint(self.pos):
+            print "Reg"  
+            self.rect_off(self.rect_regresar)
+            if self.habilitar_level_1:
+                self.level_1() 
+            elif self.habilitar_level_resta:
+                self.level_resta()  
+            elif self.habilitar_level_mult:
+                self.level_mult() 
+            elif self.habilitar_div:
+                self.level_divicion()   
+
+    def val_recargar(self):
+        if self.rect_recargar.collidepoint(self.pos):
+            print "Recargar"
+            self.puntaje=0
+            self.fallido=0    
+            if self.habilitar_level_1:
+                self.level_1()
+            elif self.habilitar_level_resta:
+                self.level_resta()
+            elif self.habilitar_level_mult:
+                self.level_mult()
+            elif self.habilitar_div:
+                self.level_divicion()         
+                         
     def seleccion_niveles(self):
         if self.habilitar_seleccion_niveles:
             if self.rect_btn_suma.collidepoint(self.pos):
@@ -408,7 +490,6 @@ class cliked:
                 self.sonido_click()
                 self.rect_off(self.rect_btn_suma)
                 self.rect_off(self.rect_btn_niveles)
-              
                 self.rect_off(self.rect_btn_resta)
                 self.rect_off(self.rect_btn_mult)
                 self.rect_off(self.rect_btn_dividir)
@@ -424,13 +505,11 @@ class cliked:
                 self.rect_off(self.rect_btn_suma)
                 self.rect_off(self.rect_btn_dividir)
                 self.rect_off(self.rect_btn_mult)
-    
                 self.rect_off(self.rect_btn_niveles)
                 self.habilitar_level_resta=True
                 self.habilitar_home=True
                 self.habilitar_ayuda=True
                 self.level_resta() 
-
 
             if self.rect_btn_mult.collidepoint(self.pos):
                 print "Multiplicar"
@@ -439,7 +518,6 @@ class cliked:
                 self.habilitar_ayuda=True
                 self.rect_off(self.rect_btn_suma)
                 self.rect_off(self.rect_btn_niveles)
-       
                 self.rect_off(self.rect_btn_resta)
                 self.rect_off(self.rect_btn_mult)
                 self.rect_off(self.rect_btn_dividir)
@@ -458,7 +536,6 @@ class cliked:
                 self.rect_off(self.rect_btn_mult)
                 self.rect_off(self.rect_btn_dividir)
                 self.level_divicion()   
-
 
     def validaciones_level_1(self):  
 
@@ -523,8 +600,6 @@ class cliked:
                     self.imprimir_letra("Fallido= "+str(self.fallido),(0,0,0),(255,255,255),390,150)
                     self.intento_fallido((0,0,0),(color_letra_fallido),'imagenes/estrella_3.png',self.result_3,720,620,780,675)
                     self.sonido_fallido()
-
-
 
     def validaciones_level_resta(self):
 
@@ -599,13 +674,15 @@ class cliked:
                 if self.result_1==self.total_mult:
                     print "Ganas"
                     self.puntaje+=1
-               
-                    self.imprimir_letra(self.result_1,(0,0,0),(255,255,255),1029,400)
+                    self.ventana.blit(self.cara_feliz,(220,470))
+                    self.intento_fallido((0,0,0),(255,255,255),'imagenes/nube_2.png',self.result_1,930,295,1020,350)
+                    # self.imprimir_letra(self.result_1,(0,0,0),(255,255,255),1029,400)
                     pygame.time.wait(self.tiempo_ventana)
                     self.level_mult()
                 else:
                     print "Pierdes" 
                     self.fallido+=1
+                    self.ventana.blit(self.cara_triste,(220,470))
                     self.imprimir_letra("Fallido= "+str(self.fallido),(0,0,0),(255,255,255),210,165)
                     self.sonido_fallido()   
 
@@ -615,12 +692,14 @@ class cliked:
                 if self.result_2==self.total_mult:
                     print "Ganas"
                     self.puntaje+=1
-                    self.imprimir_letra(self.result_2,(0,0,0),(255,255,255),1029,400)
+                    self.ventana.blit(self.cara_feliz,(520,470))
+                    self.intento_fallido((0,0,0),(255,255,255),'imagenes/nube_2.png',self.result_2,930,295,1020,350)
                     pygame.time.wait(self.tiempo_ventana)
                     self.level_mult()
                 else:
                     print "Pierdes"  
                     self.fallido+=1
+                    self.ventana.blit(self.cara_triste,(520,470))
                     self.imprimir_letra("Fallido= "+str(self.fallido),(0,0,0),(255,255,255),210,165)
                     self.sonido_fallido()  
 
@@ -632,26 +711,27 @@ class cliked:
                 if self.result_3==self.total_mult:
                     print "Ganas"
                     self.puntaje+=1
-                    self.imprimir_letra(self.result_3,(0,0,0),(255,255,255),1029,400)
+                    self.ventana.blit(self.cara_feliz,(995,470))
+                    self.intento_fallido((0,0,0),(255,255,255),'imagenes/nube_2.png',self.result_3,930,295,1020,350)
                     pygame.time.wait(self.tiempo_ventana)
                     self.level_mult()
                 else:
                     print "Pierdes" 
                     self.fallido+=1
+                    self.ventana.blit(self.cara_triste,(955,470))
                     self.imprimir_letra("Fallido= "+str(self.fallido),(0,0,0),(255,255,255),210,165)
                     self.sonido_fallido()     
 
-  
-
     def validacion_div(self):
         print "Val level"
-        self.cara_triste=pygame.image.load("imagenes/cara_triste.png")
+        
         self.bicho=pygame.image.load("imagenes/bicho_div.png")
         if self.rect_arbol_div_1.collidepoint(self.pos):
             if self.X1_div==250 and self.Y1_div==640:
                 if self.result_div_1==self.total_div:
                     print "Ganas"
                     self.puntaje +=1
+                    self.ventana.blit(self.cara_feliz,(224,490))
                     self.ventana.blit(self.bicho,(932,140,0,0))
                     self.imprimir_letra(self.result_div_1,(255,255,255),(0,0,0),1020,310)
                     pygame.time.wait(self.tiempo_ventana)
@@ -661,7 +741,7 @@ class cliked:
                     self.ventana.blit(self.cara_triste,(224,490))                          
                     self.sonido_fallido()
                     self.fallido+=1
-                    self.imprimir_letra("Fallido= "+str(self.fallido),(0,0,0),(255,255,255),390,150)
+                    self.imprimir_letra("Fallido= "+str(self.fallido),(0,0,0),(255,255,255),400,115)
 
 
         elif self.rect_arbol_div_2.collidepoint(self.pos):
@@ -670,6 +750,7 @@ class cliked:
                 if self.result_div_2==self.total_div:
                     print "Ganas"
                     self.puntaje +=1
+                    self.ventana.blit(self.cara_feliz,(580,490))
                     self.ventana.blit(self.bicho,(932,140,0,0))
                     self.imprimir_letra(self.result_div_2,(255,255,255),(0,0,0),1020,310)
                     pygame.time.wait(self.tiempo_ventana)
@@ -679,7 +760,7 @@ class cliked:
                     self.ventana.blit(self.cara_triste,(580,490))                      
                     self.sonido_fallido()
                     self.fallido+=1
-                    self.imprimir_letra("Fallido= "+str(self.fallido),(0,0,0),(255,255,255),390,150)                  
+                    self.imprimir_letra("Fallido= "+str(self.fallido),(0,0,0),(255,255,255),400,115)                  
 
         elif self.rect_arbol_div_3.collidepoint(self.pos):
             
@@ -687,6 +768,7 @@ class cliked:
                 if self.result_div_3==self.total_div:
                     print "Ganas"
                     self.puntaje +=1
+                    self.ventana.blit(self.cara_feliz,(990,490))
                     self.ventana.blit(self.bicho,(932,140,0,0))    
                     self.imprimir_letra(self.result_div_3,(255,255,255),(0,0,0),1020,310)
                     pygame.time.wait(self.tiempo_ventana)
@@ -696,7 +778,7 @@ class cliked:
                     self.sonido_fallido() 
                     self.ventana.blit(self.cara_triste,(990,490))                      
                     self.fallido+=1
-                    self.imprimir_letra("Fallido= "+str(self.fallido),(0,0,0),(255,255,255),390,150)    
+                    self.imprimir_letra("Fallido= "+str(self.fallido),(0,0,0),(255,255,255),400,115)    
         pygame.display.update()                
                 
 
