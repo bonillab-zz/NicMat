@@ -2,6 +2,7 @@ import pygame,sys
 import random
 from pygame.locals import *
 from utils import CURSOR , cliked , niveles
+import gtk
 
 resolution=(1200,900)
 
@@ -16,6 +17,17 @@ class Main_Class(cliked,niveles):
     tiempo_aux=1
     tamanio_letra=50
     tipo_letra="Impact"
+
+    def main(self):
+        pygame.init()
+        # pygame.mixer.music.load('sonidos/musica.ogg')
+        # pygame.mixer.music.play(30)
+        cursor = pygame.cursors.compile(CURSOR)
+        pygame.mouse.set_cursor((32,32), (1,1), * cursor)
+        self.ventana=pygame.display.set_mode((resolution))
+        pygame.display.set_caption("NicMat")
+        self.principal()
+        pygame.display.update()    
         
     def principal(self): 
         self.cara_triste=pygame.image.load("imagenes/cara_triste.png")
@@ -126,7 +138,7 @@ class Main_Class(cliked,niveles):
         pygame.display.update() 
 
     def sonido_fallido(self):
-        self.sonido_error=pygame.mixer.Sound("sonidos/fallido.wav")
+        self.sonido_error=pygame.mixer.Sound("sonidos/fallido.ogg")
         self.sonido_error.play()
 
     def rect_off(self,rectangulo):   
@@ -171,22 +183,15 @@ class Main_Class(cliked,niveles):
         self.tiempo=pygame.time.get_ticks()/1000
         if self.tiempo_aux==self.tiempo:
             self.tiempo_aux+=1
-            print self.tiempo
 
-    def __init__(self):
-        pygame.init()
-        # pygame.mixer.music.load('sonidos/musica.ogg')
-        # pygame.mixer.music.play(30)
-        cursor = pygame.cursors.compile(CURSOR)
-        pygame.mouse.set_cursor((32,32), (1,1), * cursor)
-        self.ventana=pygame.display.set_mode((resolution))
-        pygame.display.set_caption("NicMat")
-        pygame.display.update()            
+
+            
 
     def deteccion_click(self):    
         while True:
             # self.actializar_puntaje()
-    
+            while gtk.events_pending():
+            	gtk.main_iteration()
                 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -252,4 +257,4 @@ class Main_Class(cliked,niveles):
 
                
 if __name__=='__main__':
-    Main_Class().principal()
+    Main_Class().main()

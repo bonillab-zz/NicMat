@@ -5,24 +5,26 @@ import sugargame
 import sugargame.canvas
 import gtk
 
+
 from sugar.activity import activity
+from sugar.graphics.toolbarbox import ToolbarBox
+from sugar.activity.widgets import ActivityToolbarButton
+from sugar.activity.widgets import StopButton
+from Numeros import Main_Class
 
-
-import Numeros
-
-class HelloWorldActivity(activity.Activity):
+class NicMatActivity(activity.Activity):
 
     def __init__(self, handle):
         activity.Activity.__init__(self, handle)
 
         # Change the following number to change max participants
         self.max_participants = 1
-        
-        self.actividad = Numeros.Main_Class
+        self.build_toolbar()
+        self.actividad = Main_Class()
         self._pygamecanvas = sugargame.canvas.PygameCanvas(self)
         self.set_canvas(self._pygamecanvas)
         self._pygamecanvas.grab_focus()
-        self._pygamecanvas.run_pygame(self.actividad)
+        self._pygamecanvas.run_pygame(self.actividad.main)
 
     def read_file(self, file_path):
         pass

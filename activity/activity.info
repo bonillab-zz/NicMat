@@ -1,8 +1,7 @@
 [Activity]
-name = Nic-Mat 
+name = NicMat
+bundle_id = org.sugarlabs.NicMat
+icon = activity-helloworld
+exec = sugar-activity activity.NicMatActivity
 activity_version = 1
-bundle_id = net.nestor.numeros
-exec = sugar-activity Numeros.Main_Class
-license = GPLv2+
-icon = activity
-summary = Diviertete con las Matematicas! 
+show_launcher = yes
