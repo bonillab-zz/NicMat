@@ -16,7 +16,7 @@ class Main_Class(cliked,niveles):
     fallido=0
     tiempo_aux=1
     tamanio_letra=50
-    tipo_letra="Impact"
+    tipo_letra="Arial"
 
     def main(self):
         pygame.init()
