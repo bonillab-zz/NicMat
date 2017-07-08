@@ -20,15 +20,15 @@ class NicMatActivity(activity.Activity):
         # Change the following number to change max participants
         self.max_participants = 1
         self.build_toolbar()
-        self.actividad = Main_Class()
+        self.actividad = Main_Class().main()
         self._pygamecanvas = sugargame.canvas.PygameCanvas(self)
         self.set_canvas(self._pygamecanvas)
         self._pygamecanvas.grab_focus()
-        self._pygamecanvas.run_pygame(self.actividad.main)
+        self._pygamecanvas.run_pygame(self.actividad)
 
     def read_file(self, file_path):
         pass
-        
+
     def write_file(self, file_path):
         pass
 
@@ -39,7 +39,7 @@ class NicMatActivity(activity.Activity):
         activity_button = ActivityToolbarButton(self)
         toolbar_box.toolbar.insert(activity_button, -1)
         activity_button.show()
-        
+
         separator = gtk.SeparatorToolItem()
         separator.props.draw = False
         separator.set_expand(True)
@@ -51,7 +51,3 @@ class NicMatActivity(activity.Activity):
 
         self.set_toolbar_box(toolbar_box)
         toolbar_box.show_all()
-
-
-
-
